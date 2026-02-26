@@ -15,14 +15,18 @@ Command-line automation for macOS that saves **$3,000/year** in time and **98%**
 npm install -g @axctl/core
 ```
 
-## 🆓 Free vs Pro
+## 🆓 Pricing
 
-| Feature | Free | Pro ($69/year) |
-|---------|------|----------------|
-| Desktop automation (AX Helper) | ✅ Unlimited | ✅ Unlimited |
-| Xcode build automation | ❌ | ✅ |
-| App Store Connect API | ❌ | ✅ |
-| Machine limit | N/A | 3 machines |
+| Feature | Free | Monthly | Annual | Lifetime |
+|---------|------|---------|--------|----------|
+| **Price** | $0 | $9/mo | $69/year | $179 once |
+| **Desktop automation** | ✅ Unlimited | ✅ Unlimited | ✅ Unlimited | ✅ Unlimited |
+| **Xcode build automation** | ❌ | ✅ | ✅ | ✅ |
+| **App Store Connect API** | ❌ | ✅ | ✅ | ✅ |
+| **Machine limit** | N/A | 1 machine | 3 machines | 5 machines |
+| **Updates** | N/A | ✅ | ✅ | ✅ Forever |
+
+**Best Value:** Lifetime ($179) = 2.6 years of annual, then free forever 🚀
 
 ## 💡 Why AXCTL?
 
