@@ -8,6 +8,7 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const crypto = require('crypto');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const { sendLicenseEmail } = require('./send-email');
 require('dotenv').config();
 
 const app = express();
@@ -285,13 +286,23 @@ app.post('/webhook/stripe', express.raw({type: 'application/json'}), async (req,
         INSERT INTO licenses 
         (license_key, stripe_customer_id, stripe_subscription_id, plan, created_at, expires_at, status)
         VALUES (?, ?, ?, ?, ?, ?, ?)
-      `, [licenseKey, customerId, subscriptionId, plan, now, expiresAt, 'active'], (err) => {
+      `, [licenseKey, customerId, subscriptionId, plan, now, expiresAt, 'active'], async (err) => {
         if (err) {
           console.error('Failed to create license:', err);
         } else {
           console.log(`License created: ${licenseKey} (${plan})`);
           
-          // TODO: Send email with license key to customer
+          // Send email with license key
+          try {
+            const customer = await stripe.customers.retrieve(customerId);
+            if (customer.email) {
+              await sendLicenseEmail(customer.email, licenseKey, plan);
+              console.log(`License email sent to: ${customer.email}`);
+            }
+          } catch (emailErr) {
+            console.error('Failed to send license email:', emailErr);
+            // Don't fail the webhook if email fails
+          }
         }
       });
       

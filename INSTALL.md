@@ -236,7 +236,7 @@ rm -rf ~/.axctl
 ## Support
 
 - **Documentation:** https://github.com/damediacoadmin/axctl
-- **Email:** support@axctl.dev
+- **Email:** hello@axctl.dev
 - **Issues:** https://github.com/damediacoadmin/axctl/issues
 
 ## Next Steps

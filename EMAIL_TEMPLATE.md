@@ -93,7 +93,7 @@ asc-api upload-build --ipa MyApp.ipa
 
 ## Need Help?
 
-- **Email:** support@axctl.dev
+- **Email:** hello@axctl.dev
 - **GitHub Issues:** https://github.com/damediacoadmin/axctl/issues
 - **Discord:** https://discord.gg/axctl (coming soon)
 
