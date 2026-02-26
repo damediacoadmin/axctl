@@ -48,37 +48,78 @@
       Your purchase was successful
     </p>
     
-    <!-- Info Box -->
-    <div class="bg-gray-800/50 border border-gray-700 rounded-2xl p-8 mb-8 text-left">
+    <!-- License Key Box (will be populated via JS) -->
+    <div id="license-box" class="bg-gradient-to-br from-primary-500/10 to-accent-500/10 border-2 border-primary-500/30 rounded-2xl p-8 mb-8" style="display: none;">
       <h2 class="text-2xl font-bold mb-4 flex items-center">
         <svg class="w-6 h-6 mr-2 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1721 9z"></path>
         </svg>
-        What's Next?
+        Your License Key
       </h2>
       
-      <div class="space-y-4 text-gray-300">
+      <div class="bg-gray-900 rounded-lg p-4 mb-4 font-mono text-lg text-center">
+        <span id="license-key" class="text-primary-400 select-all">Loading...</span>
+      </div>
+      
+      <p class="text-sm text-gray-400 text-center mb-4">
+        ⚠️ Save this license key! You'll need it to activate AXCTL on your Mac.
+      </p>
+      
+      <button onclick="copyLicense()" class="w-full px-4 py-2 bg-primary-600 hover:bg-primary-700 rounded-lg font-semibold transition">
+        📋 Copy License Key
+      </button>
+    </div>
+    
+    <!-- Installation Instructions -->
+    <div class="bg-gray-800/50 border border-gray-700 rounded-2xl p-8 mb-8 text-left">
+      <h2 class="text-2xl font-bold mb-4 flex items-center">
+        <svg class="w-6 h-6 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        Installation Steps
+      </h2>
+      
+      <div class="space-y-6 text-gray-300">
+        <div class="flex items-start">
+          <span class="text-2xl mr-3 font-bold text-primary-400">1</span>
+          <div class="flex-1">
+            <p class="font-semibold text-white mb-2">Install via npm</p>
+            <div class="bg-gray-900 rounded-lg p-3 font-mono text-sm mb-2">
+              npm install -g @axctl/core
+            </div>
+            <p class="text-sm text-gray-400">Or download from GitHub: <a href="https://github.com/damediacoadmin/axctl" class="text-primary-400 hover:text-primary-300">damediacoadmin/axctl</a></p>
+          </div>
+        </div>
+        
+        <div class="flex items-start">
+          <span class="text-2xl mr-3 font-bold text-primary-400">2</span>
+          <div class="flex-1">
+            <p class="font-semibold text-white mb-2">Activate your license</p>
+            <div class="bg-gray-900 rounded-lg p-3 font-mono text-sm mb-2">
+              axctl activate YOUR-LICENSE-KEY
+            </div>
+            <p class="text-sm text-gray-400">Replace YOUR-LICENSE-KEY with the key above</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start">
+          <span class="text-2xl mr-3 font-bold text-primary-400">3</span>
+          <div class="flex-1">
+            <p class="font-semibold text-white mb-2">Start automating!</p>
+            <div class="bg-gray-900 rounded-lg p-3 font-mono text-sm space-y-1">
+              <div><span class="text-gray-500"># Desktop automation</span></div>
+              <div>ax-helper query Safari</div>
+              <div class="pt-2"><span class="text-gray-500"># iOS automation</span></div>
+              <div>xcode-archive --project MyApp.xcodeproj</div>
+            </div>
+          </div>
+        </div>
+        
         <div class="flex items-start">
           <span class="text-2xl mr-3">📧</span>
           <div>
             <p class="font-semibold text-white mb-1">Check Your Email</p>
-            <p>Your license key and installation instructions have been sent to your email address.</p>
-          </div>
-        </div>
-        
-        <div class="flex items-start">
-          <span class="text-2xl mr-3">⚡</span>
-          <div>
-            <p class="font-semibold text-white mb-1">Install AXCTL</p>
-            <p>Follow the setup guide in your email to install the CLI tools on your Mac.</p>
-          </div>
-        </div>
-        
-        <div class="flex items-start">
-          <span class="text-2xl mr-3">🚀</span>
-          <div>
-            <p class="font-semibold text-white mb-1">Start Automating</p>
-            <p>Save $3,000/year in time and 97% on AI token costs with AXCTL automation.</p>
+            <p class="text-sm">We've also sent your license key and full installation guide to your email.</p>
           </div>
         </div>
       </div>
@@ -104,13 +145,34 @@
   </div>
   
   <script>
+    const API_URL = 'https://agile-enjoyment-production-82c8.up.railway.app';
+    
     // Get session_id from URL
     const urlParams = new URLSearchParams(window.location.search);
     const sessionId = urlParams.get('session_id');
     
+    // Copy license to clipboard
+    function copyLicense() {
+      const licenseKey = document.getElementById('license-key').textContent;
+      navigator.clipboard.writeText(licenseKey).then(() => {
+        alert('License key copied to clipboard! ✅');
+      });
+    }
+    
+    // Fetch license key from session
     if (sessionId) {
-      console.log('Checkout session:', sessionId);
-      // You could send this to analytics, etc.
+      fetch(`${API_URL}/session/${sessionId}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.license_key) {
+            document.getElementById('license-key').textContent = data.license_key;
+            document.getElementById('license-box').style.display = 'block';
+          }
+        })
+        .catch(err => {
+          console.error('Failed to fetch license:', err);
+          // License will be in email anyway
+        });
     }
   </script>
   

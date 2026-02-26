@@ -398,6 +398,44 @@ app.post('/create-checkout', async (req, res) => {
   }
 });
 
+// GET /session/:sessionId - Get license key from checkout session
+app.get('/session/:sessionId', async (req, res) => {
+  const { sessionId } = req.params;
+  
+  try {
+    // Fetch session from Stripe
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    
+    if (!session || !session.customer) {
+      return res.status(404).json({ error: 'Session not found' });
+    }
+    
+    // Find license by customer ID
+    db.get('SELECT license_key, plan, created_at, expires_at FROM licenses WHERE stripe_customer_id = ? ORDER BY created_at DESC LIMIT 1',
+      [session.customer],
+      (err, license) => {
+        if (err) {
+          console.error('Database error:', err);
+          return res.status(500).json({ error: 'Database error' });
+        }
+        
+        if (!license) {
+          return res.status(404).json({ error: 'License not found' });
+        }
+        
+        res.json({
+          license_key: license.license_key,
+          plan: license.plan,
+          created_at: license.created_at,
+          expires_at: license.expires_at
+        });
+      });
+  } catch (error) {
+    console.error('Session retrieval error:', error);
+    res.status(500).json({ error: 'Failed to retrieve session' });
+  }
+});
+
 // GET /health - Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: Date.now() });
