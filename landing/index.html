@@ -325,7 +325,18 @@ axctl xcode upload build/MyApp.ipa
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-16">
         <h2 class="text-4xl font-bold mb-4">Choose Your Plan</h2>
-        <p class="text-xl text-gray-400">Start free. Upgrade when you need iOS automation.</p>
+        <p class="text-xl text-gray-400 mb-8">Start free. Upgrade when you need iOS automation.</p>
+        
+        <!-- Billing Toggle -->
+        <div class="inline-flex items-center bg-gray-800 border border-gray-700 rounded-lg p-1">
+          <button onclick="toggleBilling('monthly')" id="monthly-btn" class="px-6 py-2 rounded-md text-sm font-semibold transition">
+            Monthly
+          </button>
+          <button onclick="toggleBilling('annual')" id="annual-btn" class="px-6 py-2 rounded-md text-sm font-semibold bg-primary-600 text-white transition">
+            Annual
+            <span class="ml-2 px-2 py-0.5 bg-green-500/20 text-green-400 rounded text-xs">Save $39</span>
+          </button>
+        </div>
       </div>
       
       <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -386,17 +397,35 @@ axctl xcode upload build/MyApp.ipa
             🔥 MOST POPULAR
           </div>
           
-          <div class="text-sm font-semibold text-primary-400 mb-2">ANNUAL</div>
-          <div class="flex items-baseline mb-2">
-            <span class="text-4xl font-bold">$69</span>
-            <span class="text-gray-400 ml-2">/year</span>
+          <!-- Monthly Pricing -->
+          <div id="monthly-pricing" style="display: none;">
+            <div class="text-sm font-semibold text-primary-400 mb-2">MONTHLY</div>
+            <div class="flex items-baseline mb-2">
+              <span class="text-4xl font-bold">$9</span>
+              <span class="text-gray-400 ml-2">/month</span>
+            </div>
+            <div class="text-gray-400 text-sm mb-6">1 machine</div>
+            
+            <button onclick="checkout('monthly')" 
+              class="block w-full text-center px-6 py-3 bg-primary-600 hover:bg-primary-700 rounded-lg font-semibold transition mb-8">
+              Start Monthly Plan
+            </button>
           </div>
-          <div class="text-green-400 text-sm mb-6">Save $39 vs monthly</div>
           
-          <button onclick="checkout('annual')" 
-            class="block w-full text-center px-6 py-3 bg-primary-600 hover:bg-primary-700 rounded-lg font-semibold transition mb-8">
-            Start Annual Plan
-          </button>
+          <!-- Annual Pricing -->
+          <div id="annual-pricing">
+            <div class="text-sm font-semibold text-primary-400 mb-2">ANNUAL</div>
+            <div class="flex items-baseline mb-2">
+              <span class="text-4xl font-bold">$69</span>
+              <span class="text-gray-400 ml-2">/year</span>
+            </div>
+            <div class="text-green-400 text-sm mb-6">Save $39 vs monthly</div>
+            
+            <button onclick="checkout('annual')" 
+              class="block w-full text-center px-6 py-3 bg-primary-600 hover:bg-primary-700 rounded-lg font-semibold transition mb-8">
+              Start Annual Plan
+            </button>
+          </div>
           
           <div class="text-sm text-gray-400 mb-4">Everything in Free, PLUS:</div>
           
@@ -429,7 +458,7 @@ axctl xcode upload build/MyApp.ipa
               <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span class="text-sm">Up to 3 machines</span>
+              <span class="text-sm" id="machine-limit">Up to 3 machines</span>
             </div>
             <div class="flex items-start">
               <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -651,6 +680,33 @@ axctl xcode upload build/MyApp.ipa
       } catch (err) {
         console.error('Checkout error:', err);
         alert('Failed to start checkout. Please try again.');
+      }
+    }
+    
+    // Toggle billing period
+    function toggleBilling(period) {
+      const monthlyPricing = document.getElementById('monthly-pricing');
+      const annualPricing = document.getElementById('annual-pricing');
+      const monthlyBtn = document.getElementById('monthly-btn');
+      const annualBtn = document.getElementById('annual-btn');
+      const machineLimit = document.getElementById('machine-limit');
+      
+      if (period === 'monthly') {
+        monthlyPricing.style.display = 'block';
+        annualPricing.style.display = 'none';
+        monthlyBtn.classList.add('bg-primary-600', 'text-white');
+        monthlyBtn.classList.remove('text-gray-400');
+        annualBtn.classList.remove('bg-primary-600', 'text-white');
+        annualBtn.classList.add('text-gray-400');
+        machineLimit.textContent = '1 machine';
+      } else {
+        monthlyPricing.style.display = 'none';
+        annualPricing.style.display = 'block';
+        annualBtn.classList.add('bg-primary-600', 'text-white');
+        annualBtn.classList.remove('text-gray-400');
+        monthlyBtn.classList.remove('bg-primary-600', 'text-white');
+        monthlyBtn.classList.add('text-gray-400');
+        machineLimit.textContent = 'Up to 3 machines';
       }
     }
     
