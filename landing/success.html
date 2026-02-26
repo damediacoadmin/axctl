@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You - AXCTL</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: { 500: '#3b82f6', 600: '#2563eb' },
+            accent: { 500: '#a855f7' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen flex items-center justify-center px-4">
+  
+  <div class="max-w-2xl w-full text-center">
+    <!-- Success Icon -->
+    <div class="mb-8">
+      <svg class="w-24 h-24 mx-auto text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+    </div>
+    
+    <!-- Heading -->
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">
+      <span class="gradient-text">Thank You!</span>
+    </h1>
+    
+    <p class="text-xl text-gray-300 mb-8">
+      Your purchase was successful
+    </p>
+    
+    <!-- Info Box -->
+    <div class="bg-gray-800/50 border border-gray-700 rounded-2xl p-8 mb-8 text-left">
+      <h2 class="text-2xl font-bold mb-4 flex items-center">
+        <svg class="w-6 h-6 mr-2 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+        </svg>
+        What's Next?
+      </h2>
+      
+      <div class="space-y-4 text-gray-300">
+        <div class="flex items-start">
+          <span class="text-2xl mr-3">📧</span>
+          <div>
+            <p class="font-semibold text-white mb-1">Check Your Email</p>
+            <p>Your license key and installation instructions have been sent to your email address.</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start">
+          <span class="text-2xl mr-3">⚡</span>
+          <div>
+            <p class="font-semibold text-white mb-1">Install AXCTL</p>
+            <p>Follow the setup guide in your email to install the CLI tools on your Mac.</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start">
+          <span class="text-2xl mr-3">🚀</span>
+          <div>
+            <p class="font-semibold text-white mb-1">Start Automating</p>
+            <p>Save $3,000/year in time and 97% on AI token costs with AXCTL automation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="https://github.com/axctl/axctl" 
+         class="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl transition-all">
+        📖 View Documentation
+      </a>
+      
+      <a href="https://discord.gg/axctl" 
+         class="px-8 py-4 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-semibold rounded-xl transition-all">
+        💬 Join Discord Community
+      </a>
+    </div>
+    
+    <!-- Support -->
+    <div class="mt-12 text-gray-400">
+      <p>Need help? Email us at <a href="mailto:support@axctl.dev" class="text-primary-500 hover:text-primary-400">support@axctl.dev</a></p>
+    </div>
+  </div>
+  
+  <script>
+    // Get session_id from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get('session_id');
+    
+    if (sessionId) {
+      console.log('Checkout session:', sessionId);
+      // You could send this to analytics, etc.
+    }
+  </script>
+  
+</body>
+</html>
