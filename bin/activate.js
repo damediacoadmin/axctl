@@ -56,7 +56,7 @@ function activateLicense(licenseKey) {
       try {
         const response = JSON.parse(body);
         
-        if (res.statusCode === 200 && response.success) {
+        if (res.statusCode === 200 && (response.valid || response.success)) {
           // Save license locally
           if (!fs.existsSync(CONFIG_DIR)) {
             fs.mkdirSync(CONFIG_DIR, { recursive: true });
@@ -73,12 +73,16 @@ function activateLicense(licenseKey) {
           
           console.log('\n✅ License activated successfully!');
           console.log('Plan:', response.plan);
+          console.log('Max machines:', response.max_machines);
+          if (response.message) {
+            console.log('Note:', response.message);
+          }
           console.log('\nYou can now use Pro features:');
           console.log('  - xcodebuild automation');
           console.log('  - App Store Connect API');
           console.log('\nStored in:', LICENSE_FILE);
         } else {
-          console.error('\n❌ Activation failed:', response.error || 'Unknown error');
+          console.error('\n❌ Activation failed:', response.error || response.message || 'Unknown error');
           process.exit(1);
         }
       } catch (err) {
