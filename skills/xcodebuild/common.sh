@@ -4,6 +4,25 @@
 # Bash strict mode
 set -euo pipefail
 
+# Check for valid license (Pro feature)
+check_license() {
+    # Find the check-license.js script
+    local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    local check_license="$script_dir/../../bin/check-license.js"
+    
+    if [[ ! -f "$check_license" ]]; then
+        # Try alternative path (when installed via npm)
+        check_license="$(dirname $(dirname "$script_dir"))/bin/check-license.js"
+    fi
+    
+    if [[ -f "$check_license" ]]; then
+        node "$check_license" || exit 1
+    else
+        echo "❌ License checker not found. Please reinstall AXCTL."
+        exit 1
+    fi
+}
+
 # Color codes
 readonly COLORS_RESET='\033[0m'
 readonly COLORS_RED='\033[0;31m'

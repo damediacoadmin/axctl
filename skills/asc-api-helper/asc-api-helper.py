@@ -3,6 +3,8 @@
 
 import argparse
 import json
+import os
+import subprocess
 import sys
 import time
 
@@ -10,7 +12,27 @@ from asc_auth import generate_token
 from asc_api import list_apps, list_builds, get_app
 
 
+def check_license():
+    """Check for valid Pro license."""
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    check_script = os.path.join(script_dir, '..', '..', 'bin', 'check-license.js')
+    
+    if not os.path.exists(check_script):
+        # Try alternative path
+        check_script = os.path.join(os.path.dirname(os.path.dirname(script_dir)), 'bin', 'check-license.js')
+    
+    if os.path.exists(check_script):
+        result = subprocess.run(['node', check_script], capture_output=True)
+        if result.returncode != 0:
+            sys.exit(1)
+    else:
+        print('❌ License checker not found. Please reinstall AXCTL.', file=sys.stderr)
+        sys.exit(1)
+
+
 def main():
+    # Check for valid Pro license
+    check_license()
     parser = argparse.ArgumentParser(
         description='App Store Connect API Helper'
     )

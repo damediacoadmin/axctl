@@ -64,16 +64,15 @@ if (args[0] === 'version' || args[0] === '--version' || args[0] === '-v') {
 
 // Handle activate command
 if (args[0] === 'activate') {
-  if (!args[1]) {
-    console.error('Error: License key required');
-    console.log('Usage: axctl activate <license-key>');
+  const { execSync } = require('child_process');
+  const path = require('path');
+  const activateScript = path.join(__dirname, 'activate.js');
+  
+  try {
+    execSync(`node ${activateScript} ${args.slice(1).join(' ')}`, { stdio: 'inherit' });
+  } catch (err) {
     process.exit(1);
   }
-  
-  const licenseKey = args[1];
-  console.log(`Activating AXCTL with license: ${licenseKey}`);
-  console.log('\n⚠️  License activation not yet implemented in CLI');
-  console.log('For now, use the tools directly - activation is optional for testing.\n');
   process.exit(0);
 }
 
