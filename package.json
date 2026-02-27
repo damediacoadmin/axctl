@@ -1,0 +1,43 @@
+{
+  "name": "@axctl/core",
+  "version": "1.0.0",
+  "description": "macOS automation toolkit - Xcode builds, App Store Connect API, and Accessibility API control",
+  "main": "index.js",
+  "bin": {
+    "axctl": "./bin/axctl.js",
+    "ax-helper": "./skills/ax-helper/ax-helper.py",
+    "asc-api": "./skills/asc-api-helper/asc-api-helper.py"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "macos",
+    "automation",
+    "xcode",
+    "app-store-connect",
+    "accessibility",
+    "cli",
+    "devtools",
+    "ios",
+    "testflight"
+  ],
+  "author": "AXCTL <hello@axctl.dev>",
+  "license": "MIT",
+  "homepage": "https://axctl.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/damediacoadmin/axctl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/damediacoadmin/axctl/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "os": [
+    "darwin"
+  ],
+  "dependencies": {},
+  "devDependencies": {}
+}

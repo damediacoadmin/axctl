@@ -1,0 +1,34 @@
+# Development files
+node_modules/
+.git/
+.gitignore
+.DS_Store
+
+# API and landing page (not needed for npm package)
+api/
+landing/
+
+# Documentation (keep README.md but exclude other docs)
+docs/RESEND_SETUP.md
+EMAIL_TEMPLATE.md
+LAUNCH.md
+LAUNCH_THREAD.md
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Test files
+test/
+*.test.js
