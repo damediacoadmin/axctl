@@ -11,66 +11,71 @@ Command-line automation for macOS that saves **$3,000/year** in time and **98%**
 
 ## 📦 Installation
 
-### Option 1: Global Install (recommended)
+### Recommended: Local Install (no permissions needed)
 ```bash
-# May require sudo on some systems
-npm install -g @axctl/core
+cd ~
+npm install @axctl/core
+
+# Then use commands with full path:
+~/node_modules/@axctl/core/skills/ax-helper/ax-helper.py query "Safari"
+
+# Or create aliases for convenience:
+alias ax-helper="~/node_modules/@axctl/core/skills/ax-helper/ax-helper.py"
+alias asc-api="~/node_modules/@axctl/core/skills/asc-api-helper/asc-api-helper.py"
+```
+
+### Alternative: Global Install (requires sudo)
+```bash
+sudo npm install -g @axctl/core
 
 # Then use commands directly:
 ax-helper query "Safari"
 axctl help
 ```
 
-### Option 2: Local Install (no permissions needed)
-```bash
-npm install @axctl/core
-
-# Then use with full path:
-node_modules/@axctl/core/skills/ax-helper/ax-helper.py query "Safari"
-
-# Or add to your PATH:
-export PATH="$PWD/node_modules/@axctl/core/skills/ax-helper:$PATH"
-export PATH="$PWD/node_modules/@axctl/core/skills/asc-api-helper:$PATH"
-export PATH="$PWD/node_modules/@axctl/core/skills/xcodebuild:$PATH"
-```
-
 ## ⚡ Quickstart
 
-### Desktop Automation (Free)
+### Desktop Automation (Free - No License Required)
 
 ```bash
 # Query any Mac app's UI
-ax-helper query "Safari"
+~/node_modules/@axctl/core/skills/ax-helper/ax-helper.py query "Safari"
 
 # Click a button
-ax-helper click "button:Submit"
+~/node_modules/@axctl/core/skills/ax-helper/ax-helper.py click "button:Submit"
 
 # Type into a field
-ax-helper type "textfield:Email" "user@example.com"
+~/node_modules/@axctl/core/skills/ax-helper/ax-helper.py type "textfield:Email" "user@example.com"
 
 # Press a key
-ax-helper press "Enter"
+~/node_modules/@axctl/core/skills/ax-helper/ax-helper.py press "Enter"
 ```
 
-### iOS Automation (Pro)
+**Tip:** Create an alias for easier use:
+```bash
+alias ax-helper="~/node_modules/@axctl/core/skills/ax-helper/ax-helper.py"
+```
+
+### iOS Automation (Pro - License Required)
 
 ```bash
-# Activate your license
-axctl activate YOUR-LICENSE-KEY
+# Get your license from https://axctl.dev
+# Note: License validation will be added in a future update
+# For now, tools work without activation for testing
 
 # Build & archive your app
-xcode-archive \
+~/node_modules/@axctl/core/skills/xcodebuild/xcode-archive.sh \
   --project MyApp.xcodeproj \
   --scheme MyApp \
   --configuration Release
 
 # Export for App Store
-xcode-export \
+~/node_modules/@axctl/core/skills/xcodebuild/xcode-export.sh \
   --archive MyApp.xcarchive \
   --method app-store
 
 # Upload to TestFlight
-xcode-upload \
+~/node_modules/@axctl/core/skills/xcodebuild/xcode-upload.sh \
   --ipa MyApp.ipa \
   --asc-key-id YOUR_KEY_ID
 ```
