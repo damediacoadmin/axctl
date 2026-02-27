@@ -14,7 +14,8 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
+// Middleware - Stripe webhook needs raw body for signature verification
+app.use('/webhook/stripe', express.raw({ type: 'application/json' }));
 app.use(express.json());
 
 // CORS - Allow requests from axctl.dev
@@ -248,7 +249,7 @@ app.post('/validate', (req, res) => {
 });
 
 // POST /webhook/stripe - Handle Stripe webhook events
-app.post('/webhook/stripe', express.raw({type: 'application/json'}), async (req, res) => {
+app.post('/webhook/stripe', async (req, res) => {
   const sig = req.headers['stripe-signature'];
   
   let event;
