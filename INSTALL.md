@@ -12,7 +12,11 @@
 ### 1. Install via npm
 
 ```bash
+# Install AXCTL
 npm install -g @axctl/core
+
+# Install Python dependencies
+pip3 install pyobjc-core pyobjc-framework-Cocoa pyobjc-framework-ApplicationServices
 ```
 
 ### 2. Grant Accessibility Permissions

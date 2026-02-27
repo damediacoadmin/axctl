@@ -16,6 +16,9 @@ Command-line automation for macOS that saves **$3,000/year** in time and **98%**
 cd ~
 npm install @axctl/core
 
+# Install Python dependencies (required for ax-helper)
+pip3 install -r ~/node_modules/@axctl/core/skills/ax-helper/requirements.txt
+
 # Then use commands with full path:
 ~/node_modules/@axctl/core/skills/ax-helper/ax-helper.py query "Safari"
 
@@ -28,10 +31,15 @@ alias asc-api="~/node_modules/@axctl/core/skills/asc-api-helper/asc-api-helper.p
 ```bash
 sudo npm install -g @axctl/core
 
+# Install Python dependencies (required for ax-helper)
+pip3 install pyobjc-core pyobjc-framework-Cocoa pyobjc-framework-ApplicationServices
+
 # Then use commands directly:
 ax-helper query "Safari"
 axctl help
 ```
+
+**Note:** Python 3 and pip3 must be installed. The ax-helper tool requires PyObjC to access macOS Accessibility APIs.
 
 ## ⚡ Quickstart
 
