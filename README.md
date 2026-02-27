@@ -11,8 +11,27 @@ Command-line automation for macOS that saves **$3,000/year** in time and **98%**
 
 ## 📦 Installation
 
+### Option 1: Global Install (recommended)
 ```bash
+# May require sudo on some systems
 npm install -g @axctl/core
+
+# Then use commands directly:
+ax-helper query "Safari"
+axctl help
+```
+
+### Option 2: Local Install (no permissions needed)
+```bash
+npm install @axctl/core
+
+# Then use with full path:
+node_modules/@axctl/core/skills/ax-helper/ax-helper.py query "Safari"
+
+# Or add to your PATH:
+export PATH="$PWD/node_modules/@axctl/core/skills/ax-helper:$PATH"
+export PATH="$PWD/node_modules/@axctl/core/skills/asc-api-helper:$PATH"
+export PATH="$PWD/node_modules/@axctl/core/skills/xcodebuild:$PATH"
 ```
 
 ## ⚡ Quickstart
