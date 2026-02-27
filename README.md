@@ -15,6 +15,97 @@ Command-line automation for macOS that saves **$3,000/year** in time and **98%**
 npm install -g @axctl/core
 ```
 
+## ⚡ Quickstart
+
+### Desktop Automation (Free)
+
+```bash
+# Query any Mac app's UI
+ax-helper query "Safari"
+
+# Click a button
+ax-helper click "button:Submit"
+
+# Type into a field
+ax-helper type "textfield:Email" "user@example.com"
+
+# Press a key
+ax-helper press "Enter"
+```
+
+### iOS Automation (Pro)
+
+```bash
+# Activate your license
+axctl activate YOUR-LICENSE-KEY
+
+# Build & archive your app
+xcode-archive \
+  --project MyApp.xcodeproj \
+  --scheme MyApp \
+  --configuration Release
+
+# Export for App Store
+xcode-export \
+  --archive MyApp.xcarchive \
+  --method app-store
+
+# Upload to TestFlight
+xcode-upload \
+  --ipa MyApp.ipa \
+  --asc-key-id YOUR_KEY_ID
+```
+
+## 📚 Usage Examples
+
+### Example 1: Automated iOS Build Pipeline
+
+```bash
+#!/bin/bash
+# Full iOS build + TestFlight upload in one command
+
+# 1. Archive
+xcode-archive \
+  --project MyApp.xcodeproj \
+  --scheme "MyApp" \
+  --configuration Release \
+  --output build/MyApp.xcarchive
+
+# 2. Export IPA
+xcode-export \
+  --archive build/MyApp.xcarchive \
+  --method app-store \
+  --output build/MyApp.ipa
+
+# 3. Upload to TestFlight
+xcode-upload \
+  --ipa build/MyApp.ipa \
+  --asc-key-id ABC123DEF456 \
+  --asc-issuer-id 12345678-1234-1234-1234-123456789012
+
+echo "✅ Build uploaded to TestFlight!"
+```
+
+### Example 2: Browser Automation (Token-Efficient)
+
+```bash
+# Fill a web form (150 tokens instead of 7,800 with Vision AI)
+ax-helper query "Google Chrome"
+ax-helper type "textfield:Email" "user@example.com"
+ax-helper type "textfield:Password" "secure-password"
+ax-helper click "button:Sign in"
+```
+
+### Example 3: Check TestFlight Status
+
+```bash
+# List all TestFlight builds
+asc-api list-builds --app-id 1234567890
+
+# Get specific build info
+asc-api build-info --build-id abc123def456
+```
+
 ## 🆓 Pricing
 
 | Feature | Free | Monthly | Annual | Lifetime |
